@@ -1,9 +1,22 @@
+# .gitignore - Git ignore configuration.
+# Copyright (c) 2018 - 2020  Richard Huang <rickypc@users.noreply.github.com>
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
+
+# Runtime files
+*.chk
+.DS_Store
+*.log
+*.sum
 
 # Test binary, built with `go test -c`
 *.test

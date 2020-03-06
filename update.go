@@ -1,4 +1,4 @@
-// update.go - Reads and find latest update from updates.xml.
+// update.go - Update check and download latest version.
 // Copyright (c) 2018 - 2020  Richard Huang <rickypc@users.noreply.github.com>
 //
 // This Source Code Form is subject to the terms of the Mozilla Public

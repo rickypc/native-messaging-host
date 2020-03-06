@@ -18,7 +18,8 @@ import (
 )
 
 // Install creates native-messaging manifest file on appropriate location and
-// add an entry in windows registry.
+// add an entry in windows registry. It will return error when it come across
+// one.
 func (h *Host) Install() error {
 	registryName := `Software\Google\Chrome\NativeMessagingHosts\` + h.AppName
 	targetName := filepath.Join(filepath.Dir(h.ExecName), h.AppName+".json")
@@ -47,7 +48,8 @@ func (h *Host) Install() error {
 }
 
 // Uninstall removes entry from windows registry and removes native-messaging
-// manifest file from installed location.
+// manifest file from installed location. It will return error when it come
+// across one.
 func (h *Host) Uninstall() error {
 	registryName := `Software\Google\Chrome\NativeMessagingHosts\` + h.AppName
 	targetName := filepath.Join(filepath.Dir(h.ExecName), h.AppName+".json")

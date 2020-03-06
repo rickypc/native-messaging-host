@@ -104,7 +104,8 @@ func (h *Host) GetHttpClient() *http.Client {
 	}
 }
 
-// MustGet is a helper that wraps a http GET call to given URL and log error if any.
+// MustGet is a helper that wraps a http GET call to given URL and log error
+// if any.
 func (h *Host) MustGet(url string) *http.Response {
 	log.Printf("GET %s", url)
 	resp, err := h.GetHttpClient().Get(url)

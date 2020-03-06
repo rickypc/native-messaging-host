@@ -44,18 +44,23 @@ var runtimeGoexit = runtime.Goexit
 
 // Init sets default value to its fields and return the Host pointer back.
 //
-// AppName is an application name in manifest file and will be defaulted to
+// * AppName is an application name in manifest file and will be defaulted to
 // current executable file name without extension, if any.
-// AppDesc is an application description in manifest file and will be defaulted
+//
+// * AppDesc is an application description in manifest file and will be defaulted
 // to current AppName.
-// AppType is an application communication type in manifest file and will be
+//
+// * AppType is an application communication type in manifest file and will be
 // defaulted to "stdio".
-// AutoUpdate indicates whether update check will be perform for this
+//
+// * AutoUpdate indicates whether update check will be perform for this
 // application and will be defaulted to true only if UpdateUrl and application
 // Version are present, otherwise it will be false.
-// ByteOrder specifies how to convert byte sequences into unsigned integers and
+//
+// * ByteOrder specifies how to convert byte sequences into unsigned integers and
 // will be defaulted to binary.LittleEndian.
-// ExecName is an executable path used across the module and will get assigned
+//
+// * ExecName is an executable path used across the module and will get assigned
 // to current executable's absolute path after the evaluation of any symbolic
 // links.
 func (h *Host) Init() *Host {

@@ -9,7 +9,7 @@ as well as it provides hook to install and uninstall manifest file to
 
 ## Installation and Usage
 
-Package documentation can be found on [GoDoc][4].
+Package documentation can be found on [GoDev][4].
 
 Installation can be done with a normal `go get`:
 
@@ -96,14 +96,14 @@ messaging := (&host.Host{
 // See [native messaging manifest][7]
 messaging := (&host.Host{
   AppName:     "tld.domain.sub.app.name",
-	AllowedExts: []string{"chrome-extension://XXX/", "chrome-extension://YYY/"},
+  AllowedExts: []string{"chrome-extension://XXX/", "chrome-extension://YYY/"},
 }).Init()
 
 ...
 
 // When you need to install.
 if err := messaging.Install(); err != nil {
-	log.Printf("install error: %v", err)
+  log.Printf("install error: %v", err)
 }
 
 ...
@@ -123,7 +123,7 @@ request.
 [1]: https://bit.ly/3axo5Xv
 [2]: https://bit.ly/2vOdAR5
 [3]: https://bit.ly/2TuQrMw
-[4]: https://bit.ly/2TMGqcj
+[4]: https://bit.ly/2Tw22L6
 [5]: https://bit.ly/2Tt4Poo
 [6]: https://bit.ly/3cAVAdq
 [7]: https://bit.ly/3aDA1Hv

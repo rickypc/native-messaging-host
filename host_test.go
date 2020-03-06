@@ -49,7 +49,7 @@ func TestHostInit(t *testing.T) {
 	exec, _ := os.Executable()
 	absExec, _ := filepath.EvalSymlinks(exec)
 
-	cases := []struct{
+	cases := []struct {
 		name string
 		got  *Host
 		want *Host
@@ -58,12 +58,12 @@ func TestHostInit(t *testing.T) {
 			"with default",
 			(&Host{}).Init(),
 			&Host{
-				AppName: "native-messaging-host",
-				AppDesc: "native-messaging-host",
-				AppType: "stdio",
+				AppName:    "native-messaging-host",
+				AppDesc:    "native-messaging-host",
+				AppType:    "stdio",
 				AutoUpdate: false,
-				ExecName: absExec,
-				ByteOrder: binary.LittleEndian,
+				ExecName:   absExec,
+				ByteOrder:  binary.LittleEndian,
 			},
 		},
 		{
@@ -72,12 +72,12 @@ func TestHostInit(t *testing.T) {
 				AppName: "my.app.name",
 			}).Init(),
 			&Host{
-				AppName: "my.app.name",
-				AppDesc: "my.app.name",
-				AppType: "stdio",
+				AppName:    "my.app.name",
+				AppDesc:    "my.app.name",
+				AppType:    "stdio",
 				AutoUpdate: false,
-				ExecName: absExec,
-				ByteOrder: binary.LittleEndian,
+				ExecName:   absExec,
+				ByteOrder:  binary.LittleEndian,
 			},
 		},
 		{
@@ -87,12 +87,12 @@ func TestHostInit(t *testing.T) {
 				AppDesc: "Description of my app",
 			}).Init(),
 			&Host{
-				AppName: "my.app.name",
-				AppDesc: "Description of my app",
-				AppType: "stdio",
+				AppName:    "my.app.name",
+				AppDesc:    "Description of my app",
+				AppType:    "stdio",
 				AutoUpdate: false,
-				ExecName: absExec,
-				ByteOrder: binary.LittleEndian,
+				ExecName:   absExec,
+				ByteOrder:  binary.LittleEndian,
 			},
 		},
 		{
@@ -103,69 +103,69 @@ func TestHostInit(t *testing.T) {
 				AppType: "any",
 			}).Init(),
 			&Host{
-				AppName: "my.app.name",
-				AppDesc: "Description of my app",
-				AppType: "any",
+				AppName:    "my.app.name",
+				AppDesc:    "Description of my app",
+				AppType:    "any",
 				AutoUpdate: false,
-				ExecName: absExec,
-				ByteOrder: binary.LittleEndian,
+				ExecName:   absExec,
+				ByteOrder:  binary.LittleEndian,
 			},
 		},
 		{
 			"with AppName, AppDesc, AppType, ByteOrder",
 			(&Host{
-				AppName: "my.app.name",
-				AppDesc: "Description of my app",
-				AppType: "any",
+				AppName:   "my.app.name",
+				AppDesc:   "Description of my app",
+				AppType:   "any",
 				ByteOrder: binary.BigEndian,
 			}).Init(),
 			&Host{
-				AppName: "my.app.name",
-				AppDesc: "Description of my app",
-				AppType: "any",
+				AppName:    "my.app.name",
+				AppDesc:    "Description of my app",
+				AppType:    "any",
 				AutoUpdate: false,
-				ExecName: absExec,
-				ByteOrder: binary.BigEndian,
+				ExecName:   absExec,
+				ByteOrder:  binary.BigEndian,
 			},
 		},
 		{
 			"with AppName, AppDesc, AppType, ByteOrder, UpdateUrl",
 			(&Host{
-				AppName: "my.app.name",
-				AppDesc: "Description of my app",
-				AppType: "any",
+				AppName:   "my.app.name",
+				AppDesc:   "Description of my app",
+				AppType:   "any",
 				ByteOrder: binary.BigEndian,
 				UpdateUrl: "https://www.google.com",
 			}).Init(),
 			&Host{
-				AppName: "my.app.name",
-				AppDesc: "Description of my app",
-				AppType: "any",
+				AppName:    "my.app.name",
+				AppDesc:    "Description of my app",
+				AppType:    "any",
 				AutoUpdate: false,
-				ExecName: absExec,
-				ByteOrder: binary.BigEndian,
-				UpdateUrl: "https://www.google.com",
+				ExecName:   absExec,
+				ByteOrder:  binary.BigEndian,
+				UpdateUrl:  "https://www.google.com",
 			},
 		},
 		{
 			"with AppName, AppDesc, AppType, ByteOrder, UpdateUrl, Version",
 			(&Host{
-				AppName: "my.app.name",
-				AppDesc: "Description of my app",
-				AppType: "any",
+				AppName:   "my.app.name",
+				AppDesc:   "Description of my app",
+				AppType:   "any",
 				ByteOrder: binary.BigEndian,
 				UpdateUrl: "https://www.google.com",
-				Version: "0.0.0",
+				Version:   "0.0.0",
 			}).Init(),
 			&Host{
-				AppName: "my.app.name",
-				AppDesc: "Description of my app",
-				AppType: "any",
+				AppName:    "my.app.name",
+				AppDesc:    "Description of my app",
+				AppType:    "any",
 				AutoUpdate: true,
-				ExecName: absExec,
-				ByteOrder: binary.BigEndian,
-				UpdateUrl: "https://www.google.com",
-				Version: "0.0.0",
+				ExecName:   absExec,
+				ByteOrder:  binary.BigEndian,
+				UpdateUrl:  "https://www.google.com",
+				Version:    "0.0.0",
 			},
 		},
 	}
@@ -184,7 +184,7 @@ func TestHostInit(t *testing.T) {
 func TestHostOnMessage(t *testing.T) {
 	t.Parallel()
 
-	cases := []struct{
+	cases := []struct {
 		name   string
 		err    bool
 		exit   bool
@@ -268,7 +268,7 @@ func TestHostOnMessage(t *testing.T) {
 func TestHostPostMessage(t *testing.T) {
 	t.Parallel()
 
-	cases := []struct{
+	cases := []struct {
 		name    string
 		err     bool
 		message interface{}

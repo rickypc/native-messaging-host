@@ -28,15 +28,15 @@ type H map[string]interface{}
 // Host represents a single native messaging host, where all native messaging
 // host operations can be done.
 type Host struct {
-	AppName      string           `json:"name"`
-	AppDesc      string           `json:"description"`
-	ExecName     string           `json:"path"`
-	AppType      string           `json:"type"`
-	AllowedExts  []string         `json:"allowed_origins"`
-	AutoUpdate   bool             `json:"-"`
-	ByteOrder    binary.ByteOrder `json:"-"`
-	UpdateUrl    string           `json:"-"`
-	Version      string           `json:"-"`
+	AppName     string           `json:"name"`
+	AppDesc     string           `json:"description"`
+	ExecName    string           `json:"path"`
+	AppType     string           `json:"type"`
+	AllowedExts []string         `json:"allowed_origins"`
+	AutoUpdate  bool             `json:"-"`
+	ByteOrder   binary.ByteOrder `json:"-"`
+	UpdateUrl   string           `json:"-"`
+	Version     string           `json:"-"`
 }
 
 // runtimeGoexit is a shortcut to runtime.Goexit. It helps write testable code.

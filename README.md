@@ -1,3 +1,8 @@
+[![Build](https://img.shields.io/travis/rickypc/native-messaging-host)](https://bit.ly/2ItWBWM)
+[![Coverage](https://img.shields.io/codecov/c/github/rickypc/native-messaging-host)](https://bit.ly/2TwjOyb)
+[![Dependabot](https://api.dependabot.com/badges/status?host=github&repo=rickypc/native-messaging-host)](https://bit.ly/2KIM5vs)
+[![License](https://img.shields.io/github/license/rickypc/native-messaging-host)][8]
+
 # Native Messaging Host Module for Go
 
 native-messaging-host is a module for sending [native messaging protocol][1]
@@ -9,7 +14,7 @@ as well as it provides hook to install and uninstall manifest file to
 
 ## Installation and Usage
 
-Package documentation can be found on [GoDev][4].
+Package documentation can be found on [GoDoc][4].
 
 Installation can be done with a normal `go get`:
 
@@ -114,16 +119,34 @@ if err := host.Uninstall(); err != nil {
 }
 ```
 
-## Issues and Contributing
+Contributing
+-
+If you would like to contribute code to Native Messaging Host repository you can do so
+through GitHub by forking the repository and sending a pull request.
 
-If you find an issue with this module, please report an issue. If you'd
-like, we welcome any contributions. Fork this module and submit a pull
-request.
+If you do not agree to [Contribution Agreement](CONTRIBUTING.md), do not
+contribute any code to Native Messaging Host repository.
+
+When submitting code, please make every effort to follow existing conventions
+and style in order to keep the code as readable as possible. Please also include
+appropriate test cases.
+
+That's it! Thank you for your contribution!
+
+License
+-
+Copyright (c) 2018 - 2020 Richard Huang.
+
+This utility is free software, licensed under: [Mozilla Public License (MPL-2.0)][8].
+
+Documentation and other similar content are provided under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][9].
 
 [1]: https://bit.ly/3axo5Xv
 [2]: https://bit.ly/2vOdAR5
 [3]: https://bit.ly/2TuQrMw
-[4]: https://bit.ly/2Tw22L6
+[4]: https://bit.ly/2TMGqcj
 [5]: https://bit.ly/2Tt4Poo
 [6]: https://bit.ly/3cAVAdq
 [7]: https://bit.ly/3aDA1Hv
+[8]: https://mzl.la/2vLmCye
+[9]: https://bit.ly/2SMCRlS

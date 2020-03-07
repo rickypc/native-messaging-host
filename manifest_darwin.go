@@ -37,6 +37,7 @@ func (h *Host) getTargetName() (string, error) {
 
 // Install creates native-messaging manifest file on appropriate location. It
 // will return error when it come across one.
+// See https://developer.chrome.com/extensions/nativeMessaging#native-messaging-host-location-nix
 func (h *Host) Install() error {
 	targetName, err := h.getTargetName()
 	if err != nil {
@@ -62,6 +63,7 @@ func (h *Host) Install() error {
 
 // Uninstall removes native-messaging manifest file from installed location. It
 // will return error when it come across one.
+// See https://developer.chrome.com/extensions/nativeMessaging#native-messaging-host-location-nix
 func (h *Host) Uninstall() error {
 	targetName, err := h.getTargetName()
 	if err != nil {

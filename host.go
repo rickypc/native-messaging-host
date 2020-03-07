@@ -63,6 +63,8 @@ var runtimeGoexit = runtime.Goexit
 // * ExecName is an executable path used across the module and will get assigned
 // to current executable's absolute path after the evaluation of any symbolic
 // links.
+//
+//   messaging := (&host.Host{}).Init()
 func (h *Host) Init() *Host {
 	exec, _ := os.Executable()
 	evaled, _ := filepath.EvalSymlinks(exec)
@@ -93,6 +95,23 @@ func (h *Host) Init() *Host {
 
 // OnMessage reads message header and message body from given reader and
 // unmarshal to given struct. It will return error when it come across one.
+//
+//   // Ensure func main returned after calling runtime.Goexit
+//   // See https://golang.org/pkg/runtime/#Goexit.
+//   defer os.Exit(0)
+//
+//   messaging := (&host.Host{}).Init()
+//
+//   // host.H is a shortcut to map[string]interface{}
+//   request := &host.H{}
+//
+//   // Read message from os.Stdin to request.
+//   if err := messaging.OnMessage(os.Stdin, request); err != nil {
+//     log.Fatalf("messaging.OnMessage error: %v", err)
+//   }
+//
+//   // Log request.
+//   log.Printf("request: %+v", request)
 func (h *Host) OnMessage(reader io.Reader, v interface{}) error {
 	length, err := h.readHeader(reader)
 
@@ -135,6 +154,19 @@ func (h *Host) readHeader(reader io.Reader) (uint32, error) {
 
 // PostMessage marshals given struct and writes message header and message body
 // to given writer. It will return error when it come across one.
+//
+//   messaging := (&host.Host{}).Init()
+//
+//   // host.H is a shortcut to map[string]interface{}
+//   response := &host.H{"key":"value"}
+//
+//   // Write message from response to os.Stdout.
+//   if err := messaging.PostMessage(os.Stdout, response); err != nil {
+//     log.Fatalf("messaging.PostMessage error: %v", err)
+//   }
+//
+//   // Log response.
+//   log.Printf("response: %+v", response)
 func (h *Host) PostMessage(writer io.Writer, v interface{}) error {
 	message, err := json.Marshal(v)
 	if err != nil {

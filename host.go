@@ -8,6 +8,90 @@
 // Package host provides native-messaging host configurations, send and receive
 // message handler, manifest install and uninstall, as well as auto update daily
 // check.
+//
+// * Receiving Message
+//
+//   // Ensure func main returned after calling runtime.Goexit
+//   // See https://golang.org/pkg/runtime/#Goexit.
+//   defer os.Exit(0)
+//
+//   messaging := (&host.Host{}).Init()
+//
+//   // host.H is a shortcut to map[string]interface{}
+//   request := &host.H{}
+//
+//   // Read message from os.Stdin to request.
+//   if err := messaging.OnMessage(os.Stdin, request); err != nil {
+//     log.Fatalf("messaging.OnMessage error: %v", err)
+//   }
+//
+//   // Log request.
+//   log.Printf("request: %+v", request)
+//
+// * Sending Message
+//
+//   messaging := (&host.Host{}).Init()
+//
+//   // host.H is a shortcut to map[string]interface{}
+//   response := &host.H{"key":"value"}
+//
+//   // Write message from response to os.Stdout.
+//   if err := messaging.PostMessage(os.Stdout, response); err != nil {
+//     log.Fatalf("messaging.PostMessage error: %v", err)
+//   }
+//
+//   // Log response.
+//   log.Printf("response: %+v", response)
+//
+// * Auto Update Configuration
+//
+//   // updates.xml example for cross platform executable:
+//   <?xml version='1.0' encoding='UTF-8'?>
+//   <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+//     <app appid='tld.domain.sub.app.name'>
+//       <updatecheck codebase='https://sub.domain.tld/app.download.all' version='1.0.0' />
+//     </app>
+//   </gupdate>
+//
+//   // updates.xml example for individual platform executable:
+//   <?xml version='1.0' encoding='UTF-8'?>
+//   <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+//     <app appid='tld.domain.sub.app.name'>
+//       <updatecheck codebase='https://sub.domain.tld/app.download.darwin' os='darwin' version='1.0.0' />
+//       <updatecheck codebase='https://sub.domain.tld/app.download.linux' os='linux' version='1.0.0' />
+//       <updatecheck codebase='https://sub.domain.tld/app.download.exe' os='windows' version='1.0.0' />
+//     </app>
+//   </gupdate>
+//
+//   // It will do daily update check.
+//   messaging := (&host.Host{
+//     AppName:   "tld.domain.sub.app.name",
+//     UpdateUrl: "https://sub.domain.tld/updates.xml", // It follows [update manifest][2]
+//     Version:   "1.0.0",                              // Current version, it must follow [SemVer][6]
+//   }).Init()
+//
+// * Install and Uninstall Hooks
+//
+//   // AllowedExts is a list of extensions that should have access to the native messaging host.
+//   // See [native messaging manifest][7]
+//   messaging := (&host.Host{
+//     AppName:     "tld.domain.sub.app.name",
+//     AllowedExts: []string{"chrome-extension://XXX/", "chrome-extension://YYY/"},
+//   }).Init()
+//
+//   ...
+//
+//   // When you need to install.
+//   if err := messaging.Install(); err != nil {
+//     log.Printf("install error: %v", err)
+//   }
+//
+//   ...
+//
+//   // When you need to uninstall.
+//   if err := host.Uninstall(); err != nil {
+//     log.Printf("uninstall error: %v", err)
+//   }
 package host
 
 import (

@@ -10,7 +10,6 @@ package host
 import (
 	"encoding/json"
 	"golang.org/x/sys/windows/registry"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -26,7 +25,7 @@ func (h *Host) Install() error {
 	registryName := `Software\Google\Chrome\NativeMessagingHosts\` + h.AppName
 	targetName := filepath.Join(filepath.Dir(h.ExecName), h.AppName+".json")
 
-	if err := ioutil.WriteFile(targetName, manifest, 0644); err != nil {
+	if err := ioutilWriteFile(targetName, manifest, 0644); err != nil {
 		return err
 	}
 

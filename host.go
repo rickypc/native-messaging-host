@@ -62,9 +62,7 @@
 //   ...
 //
 //   // When you need to uninstall.
-//   if err := host.Uninstall(); err != nil {
-//     log.Printf("uninstall error: %v", err)
-//   }
+//   host.Uninstall()
 //
 // * Auto Update Configuration
 //
@@ -98,12 +96,22 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"io"
+	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"runtime"
 	"strings"
 )
+
+// ioutilWriteFile is a shortcut to ioutil.WriteFile. It helps write testable code.
+var ioutilWriteFile = ioutil.WriteFile
+
+// osMkdirAll is a shortcut to os.MkdirAll. It helps write testable code.
+var osMkdirAll = os.MkdirAll
+
+// runtimeGoexit is a shortcut to runtime.Goexit. It helps write testable code.
+var runtimeGoexit = runtime.Goexit
 
 // H is a map[string]interface{} type shortcut and represents a dynamic
 // key-value-pair data.
@@ -122,9 +130,6 @@ type Host struct {
 	UpdateUrl   string           `json:"-"`
 	Version     string           `json:"-"`
 }
-
-// runtimeGoexit is a shortcut to runtime.Goexit. It helps write testable code.
-var runtimeGoexit = runtime.Goexit
 
 // Init sets default value to its fields and return the Host pointer back.
 //

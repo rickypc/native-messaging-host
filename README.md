@@ -114,9 +114,7 @@ if err := messaging.Install(); err != nil {
 ...
 
 // When you need to uninstall.
-if err := host.Uninstall(); err != nil {
-  log.Printf("uninstall error: %v", err)
-}
+host.Uninstall()
 ```
 
 Contributing

@@ -6,7 +6,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 .PHONY: clean
-clean: ## Remove temporary files
+clean: ## Tidy module and remove temporary files
 	@go mod tidy
 	@go clean
 

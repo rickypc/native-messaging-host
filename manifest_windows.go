@@ -14,21 +14,17 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"runtime"
 )
 
 // Install creates native-messaging manifest file on appropriate location and
 // add an entry in windows registry. It will return error when it come across
 // one.
+//
 // See https://developer.chrome.com/extensions/nativeMessaging#native-messaging-host-location
 func (h *Host) Install() error {
+	manifest, _ := json.MarshalIndent(h, "", "  ")
 	registryName := `Software\Google\Chrome\NativeMessagingHosts\` + h.AppName
 	targetName := filepath.Join(filepath.Dir(h.ExecName), h.AppName+".json")
-
-	manifest, err := json.MarshalIndent(h, "", "  ")
-	if err != nil {
-		return err
-	}
 
 	if err := ioutil.WriteFile(targetName, manifest, 0644); err != nil {
 		return err
@@ -49,16 +45,17 @@ func (h *Host) Install() error {
 }
 
 // Uninstall removes entry from windows registry and removes native-messaging
-// manifest file from installed location. It will return error when it come
-// across one.
+// manifest file from installed location.
+//
 // See https://developer.chrome.com/extensions/nativeMessaging#native-messaging-host-location
-func (h *Host) Uninstall() error {
+func (h *Host) Uninstall() {
 	registryName := `Software\Google\Chrome\NativeMessagingHosts\` + h.AppName
 	targetName := filepath.Join(filepath.Dir(h.ExecName), h.AppName+".json")
 
 	key, err := registry.OpenKey(registry.CURRENT_USER, registryName, registry.SET_VALUE)
 	if err != nil {
-		return err
+		// Unable to open windows registry.
+		log.Print(err)
 	}
 	defer key.Close()
 
@@ -85,6 +82,5 @@ func (h *Host) Uninstall() error {
 	log.Printf(`Uninstalled: HKCU\%s`, registryName)
 
 	// Exit gracefully.
-	runtime.Goexit()
-	return nil
+	runtimeGoexit()
 }

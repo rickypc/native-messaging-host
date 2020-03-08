@@ -9,51 +9,39 @@ package host
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"os"
-	"os/user"
 	"path/filepath"
-	"runtime"
 )
 
 // getTargetName returns an absolute path to native messaging host manifest
-// location for OS X. It will return error when it come across one.
+// location for OS X.
+//
 // See https://developer.chrome.com/extensions/nativeMessaging#native-messaging-host-location-nix
-func (h *Host) getTargetName() (string, error) {
+func (h *Host) getTargetName() string {
 	target := "/Library/Google/Chrome/NativeMessagingHosts"
 
-	current, err := user.Current()
-	if err != nil {
-		return "", err
+	if os.Getuid() != 0 {
+		homeDir, _ := os.UserHomeDir()
+		target = homeDir + "/Library/Application Support/Google/Chrome/NativeMessagingHosts"
 	}
 
-	if current.Uid != "0" {
-		target = current.HomeDir + "/Library/Application Support/Google/Chrome/NativeMessagingHosts"
-	}
-
-	return filepath.Join(target, h.AppName+".json"), nil
+	return filepath.Join(target, h.AppName+".json")
 }
 
 // Install creates native-messaging manifest file on appropriate location. It
 // will return error when it come across one.
+//
 // See https://developer.chrome.com/extensions/nativeMessaging#native-messaging-host-location-nix
 func (h *Host) Install() error {
-	targetName, err := h.getTargetName()
-	if err != nil {
+	manifest, _ := json.MarshalIndent(h, "", "  ")
+	targetName := h.getTargetName()
+
+	if err := osMkdirAll(filepath.Dir(targetName), 0755); err != nil {
 		return err
 	}
 
-	if err := os.MkdirAll(filepath.Dir(targetName), 0755); err != nil {
-		return err
-	}
-
-	manifest, err := json.MarshalIndent(h, "", "  ")
-	if err != nil {
-		return err
-	}
-
-	if err := ioutil.WriteFile(targetName, manifest, 0644); err != nil {
+	if err := ioutilWriteFile(targetName, manifest, 0644); err != nil {
 		return err
 	}
 
@@ -61,14 +49,11 @@ func (h *Host) Install() error {
 	return nil
 }
 
-// Uninstall removes native-messaging manifest file from installed location. It
-// will return error when it come across one.
+// Uninstall removes native-messaging manifest file from installed location.
+//
 // See https://developer.chrome.com/extensions/nativeMessaging#native-messaging-host-location-nix
-func (h *Host) Uninstall() error {
-	targetName, err := h.getTargetName()
-	if err != nil {
-		return err
-	}
+func (h *Host) Uninstall() {
+	targetName := h.getTargetName()
 
 	if err := os.Remove(targetName); err != nil {
 		// It might never have been installed.
@@ -88,6 +73,5 @@ func (h *Host) Uninstall() error {
 	log.Printf("Uninstalled: %s", targetName)
 
 	// Exit gracefully.
-	runtime.Goexit()
-	return nil
+	runtimeGoexit()
 }

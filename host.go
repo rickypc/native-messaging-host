@@ -9,6 +9,21 @@
 // message handler, manifest install and uninstall, as well as auto update daily
 // check.
 //
+// * Sending Message
+//
+//   messaging := (&host.Host{}).Init()
+//
+//   // host.H is a shortcut to map[string]interface{}
+//   response := &host.H{"key":"value"}
+//
+//   // Write message from response to os.Stdout.
+//   if err := messaging.PostMessage(os.Stdout, response); err != nil {
+//     log.Fatalf("messaging.PostMessage error: %v", err)
+//   }
+//
+//   // Log response.
+//   log.Printf("response: %+v", response)
+//
 // * Receiving Message
 //
 //   // Ensure func main returned after calling runtime.Goexit
@@ -28,20 +43,28 @@
 //   // Log request.
 //   log.Printf("request: %+v", request)
 //
-// * Sending Message
+// * Install and Uninstall Hooks
 //
-//   messaging := (&host.Host{}).Init()
+//   // AllowedExts is a list of extensions that should have access to the native messaging host.
+//   // See [native messaging manifest][7]
+//   messaging := (&host.Host{
+//     AppName:     "tld.domain.sub.app.name",
+//     AllowedExts: []string{"chrome-extension://XXX/", "chrome-extension://YYY/"},
+//   }).Init()
 //
-//   // host.H is a shortcut to map[string]interface{}
-//   response := &host.H{"key":"value"}
+//   ...
 //
-//   // Write message from response to os.Stdout.
-//   if err := messaging.PostMessage(os.Stdout, response); err != nil {
-//     log.Fatalf("messaging.PostMessage error: %v", err)
+//   // When you need to install.
+//   if err := messaging.Install(); err != nil {
+//     log.Printf("install error: %v", err)
 //   }
 //
-//   // Log response.
-//   log.Printf("response: %+v", response)
+//   ...
+//
+//   // When you need to uninstall.
+//   if err := host.Uninstall(); err != nil {
+//     log.Printf("uninstall error: %v", err)
+//   }
 //
 // * Auto Update Configuration
 //
@@ -69,29 +92,6 @@
 //     UpdateUrl: "https://sub.domain.tld/updates.xml", // It follows [update manifest][2]
 //     Version:   "1.0.0",                              // Current version, it must follow [SemVer][6]
 //   }).Init()
-//
-// * Install and Uninstall Hooks
-//
-//   // AllowedExts is a list of extensions that should have access to the native messaging host.
-//   // See [native messaging manifest][7]
-//   messaging := (&host.Host{
-//     AppName:     "tld.domain.sub.app.name",
-//     AllowedExts: []string{"chrome-extension://XXX/", "chrome-extension://YYY/"},
-//   }).Init()
-//
-//   ...
-//
-//   // When you need to install.
-//   if err := messaging.Install(); err != nil {
-//     log.Printf("install error: %v", err)
-//   }
-//
-//   ...
-//
-//   // When you need to uninstall.
-//   if err := host.Uninstall(); err != nil {
-//     log.Printf("uninstall error: %v", err)
-//   }
 package host
 
 import (

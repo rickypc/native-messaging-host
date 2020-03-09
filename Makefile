@@ -28,7 +28,7 @@ lint: ## Run code linters
 
 .PHONY: test
 test: clean version ## Run all the tests
-	go test -coverprofile cp.out
+	go test -coverprofile cp.out ./...
 
 .PHONY: version
 version: ## Display go version

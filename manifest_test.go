@@ -44,7 +44,9 @@ func TestManifestInstall(t *testing.T) {
 
 			switch wantErr {
 			case 0:
-				if uninstall { os.Remove(targetName) }
+				if uninstall {
+					os.Remove(targetName)
+				}
 			case 1:
 				oldOsMkdirAll := osMkdirAll
 				defer func() { osMkdirAll = oldOsMkdirAll }()

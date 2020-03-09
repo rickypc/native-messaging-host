@@ -165,8 +165,7 @@ func TestHostOnMessage(t *testing.T) {
 			got := &H{}
 			reader := bytes.NewReader([]byte(""))
 
-			switch message.(type) {
-			case string:
+			if _, ok := message.(string); ok {
 				header := make([]byte, 4)
 				messageStr := message.(string)
 				binary.LittleEndian.PutUint32(header, (uint32)(len(messageStr)))

@@ -5,6 +5,23 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+// Package client provides HTTP client related syntactic sugar.
+//
+// * GET call with context
+//
+//   ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+//   defer cancel()
+//
+//  resp := client.MustGetWithContext(ctx, "https://domain.tld")
+//   defer resp.Body.Close()
+//
+// * POST call with context
+//
+//   ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+//   defer cancel()
+//
+//   resp := client.MustPostWithContext(ctx, "https://domain.tld", "application/json", strings.NewReader("{}"))
+//   defer resp.Body.Close()
 package client
 
 import (

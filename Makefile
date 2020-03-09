@@ -16,7 +16,11 @@ cover: test ## Run all the test and generate test coverage report
 
 .PHONY: format
 format: ## Run code formatter
-	@gofmt -d .
+	@gofmt -d -s .
+
+.PHONY: format-auto
+format-auto: ## Run code auto-formatter. It will attempt to overwrite the files.
+	@gofmt -w .
 
 .PHONY: help
 help: ## List of all available commands

@@ -22,6 +22,23 @@ Installation can be done with a normal `go get`:
 $ go get github.com/rickypc/native-messaging-host
 ```
 
+#### Sending Message
+
+```go
+messaging := (&host.Host{}).Init()
+
+// host.H is a shortcut to map[string]interface{}
+response := &host.H{"key":"value"}
+
+// Write message from response to os.Stdout.
+if err := messaging.PostMessage(os.Stdout, response); err != nil {
+  log.Fatalf("messaging.PostMessage error: %v", err)
+}
+
+// Log response.
+log.Printf("response: %+v", response)
+```
+
 #### Receiving Message
 
 ```go
@@ -40,23 +57,6 @@ if err := messaging.OnMessage(os.Stdin, request); err != nil {
 
 // Log request.
 log.Printf("request: %+v", request)
-```
-
-#### Sending Message
-
-```go
-messaging := (&host.Host{}).Init()
-
-// host.H is a shortcut to map[string]interface{}
-response := &host.H{"key":"value"}
-
-// Write message from response to os.Stdout.
-if err := messaging.PostMessage(os.Stdout, response); err != nil {
-  log.Fatalf("messaging.PostMessage error: %v", err)
-}
-
-// Log response.
-log.Printf("response: %+v", response)
 ```
 
 #### Auto Update Configuration
@@ -115,6 +115,34 @@ if err := messaging.Install(); err != nil {
 
 // When you need to uninstall.
 host.Uninstall()
+```
+
+#### Syntactic Sugar
+
+You can import client package separately.
+
+```go
+import "github.com/rickypc/native-messaging-host/client"
+```
+
+##### GET call with context
+
+```go
+ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+defer cancel()
+
+resp := client.MustGetWithContext(ctx, "https://domain.tld")
+defer resp.Body.Close()
+```
+
+##### POST call with context
+
+```go
+ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+defer cancel()
+
+resp := client.MustPostWithContext(ctx, "https://domain.tld", "application/json", strings.NewReader("{}"))
+defer resp.Body.Close()
 ```
 
 Contributing

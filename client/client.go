@@ -88,7 +88,7 @@ func MustGetWithContext(ctx context.Context, url string) *http.Response {
 
 // MustPostWithContext is a helper that wraps a http POST call to given URL,
 // content type, and body, as well as log any error.
-func MustPostWithContext(ctx context.Context, url string, contentType string, body *strings.Reader) *http.Response {
+func MustPostWithContext(ctx context.Context, url, contentType string, body *strings.Reader) *http.Response {
 	log.Printf("POST %s %+v", url, body)
 
 	req, err := httpNewRequestWithContext(ctx, "POST", url, body)

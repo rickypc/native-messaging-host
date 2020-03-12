@@ -28,6 +28,7 @@ import (
 	"context"
 	"crypto/tls"
 	"log"
+	"github.com/rickypc/native-messaging-host/packer"
 	"net"
 	"net/http"
 	"strings"
@@ -65,6 +66,24 @@ func GetHttpClient() *http.Client {
 	return &http.Client{
 		Timeout:   HttpOverallTimeout * time.Second,
 		Transport: httpTransport,
+	}
+}
+
+// MustDownloadAndUntarWithContext will download from given URL and extract
+// tar.gz content to target destination.
+func MustDownloadAndUntarWithContext(ctx context.Context, url, target string) {
+	if resp := MustGetWithContext(ctx, url); resp != nil {
+		defer resp.Body.Close()
+		packer.Untar(resp.Body, target)
+	}
+}
+
+// MustDownloadAndUnzipWithContext will download from given URL and extract zip
+// content to target destination.
+func MustDownloadAndUnzipWithContext(ctx context.Context, url, target string) {
+	if resp := MustGetWithContext(ctx, url); resp != nil {
+		defer resp.Body.Close()
+		packer.Unzip(resp.Body, target)
 	}
 }
 

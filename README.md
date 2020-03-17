@@ -98,7 +98,7 @@ messaging := (&host.Host{
 
 ```go
 // AllowedExts is a list of extensions that should have access to the native messaging host. 
-// See [native messaging manifest][7]
+// See [native messaging manifest](https://bit.ly/3aDA1Hv)
 messaging := (&host.Host{
   AppName:     "tld.domain.sub.app.name",
   AllowedExts: []string{"chrome-extension://XXX/", "chrome-extension://YYY/"},

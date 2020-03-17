@@ -135,6 +135,24 @@ resp := client.MustGetWithContext(ctx, "https://domain.tld")
 defer resp.Body.Close()
 ```
 
+##### GET call with tar.gz content
+
+```go
+ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+defer cancel()
+
+client.MustGetAndUntarWithContext(ctx, "https://domain.tld", "/path/to/extract")
+```
+
+##### GET call with zip content
+
+```go
+ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+defer cancel()
+
+client.MustGetAndUnzipWithContext(ctx, "https://domain.tld", "/path/to/extract")
+```
+
 ##### POST call with context
 
 ```go

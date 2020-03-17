@@ -12,8 +12,22 @@
 //   ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 //   defer cancel()
 //
-//  resp := client.MustGetWithContext(ctx, "https://domain.tld")
+//   resp := client.MustGetWithContext(ctx, "https://domain.tld")
 //   defer resp.Body.Close()
+//
+// * GET call with tar.gz content
+//
+//   ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+//   defer cancel()
+//
+//   client.MustGetAndUntarWithContext(ctx, "https://domain.tld", "/path/to/extract")
+//
+// * GET call with zip content
+//
+//   ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+//   defer cancel()
+//
+//   client.MustGetAndUnzipWithContext(ctx, "https://domain.tld", "/path/to/extract")
 //
 // * POST call with context
 //
@@ -69,18 +83,18 @@ func GetHttpClient() *http.Client {
 	}
 }
 
-// MustDownloadAndUntarWithContext will download from given URL and extract
+// MustGetAndUntarWithContext will make a http GET call to given URL and extract
 // tar.gz content to target destination.
-func MustDownloadAndUntarWithContext(ctx context.Context, url, target string) {
+func MustGetAndUntarWithContext(ctx context.Context, url, target string) {
 	if resp := MustGetWithContext(ctx, url); resp != nil {
 		defer resp.Body.Close()
 		packer.Untar(resp.Body, target)
 	}
 }
 
-// MustDownloadAndUnzipWithContext will download from given URL and extract zip
-// content to target destination.
-func MustDownloadAndUnzipWithContext(ctx context.Context, url, target string) {
+// MustGetAndUnzipWithContext will make a http GET call to given URL and extract
+// zip content to target destination.
+func MustGetAndUnzipWithContext(ctx context.Context, url, target string) {
 	if resp := MustGetWithContext(ctx, url); resp != nil {
 		defer resp.Body.Close()
 		packer.Unzip(resp.Body, target)

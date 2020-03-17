@@ -4,6 +4,28 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+// Package packer provides extracting archive related syntactic sugar.
+//
+// * Extract tar.gz content
+//
+//   ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+//   defer cancel()
+//
+//   resp := client.MustGetWithContext(ctx, "https://domain.tld")
+//   defer resp.Body.Close()
+//
+//   packer.Untar(resp.Body, "/path/to/extract")
+//
+// * Extract zip content
+//
+//   ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+//   defer cancel()
+//
+//   resp := client.MustGetWithContext(ctx, "https://domain.tld")
+//   defer resp.Body.Close()
+//
+//   packer.Unzip(resp.Body, "/path/to/extract")
 package packer
 
 import (
@@ -17,6 +39,7 @@ import (
 	"strings"
 )
 
+// removeLink is a wrapper to remove given path and log any error.
 func removeLink(name string) {
 	if _, err := os.Lstat(name); err == nil {
 		if err := os.Remove(name); err != nil {
@@ -51,6 +74,7 @@ func Untar(r io.Reader, dir string) {
 	}
 }
 
+// untarEntry creates new file or folder on given tar header.
 func untarEntry(tr *tar.Reader, h *tar.Header, dir string) {
 	mode := h.FileInfo().Mode()
 	name := filepath.Join(dir, filepath.FromSlash(h.Name))
@@ -99,6 +123,7 @@ func untarEntry(tr *tar.Reader, h *tar.Header, dir string) {
 	}
 }
 
+// validRelPath validates given relative path.
 func validRelPath(p string) bool {
 	if p == "" || strings.Contains(p, `\`) || strings.HasPrefix(p, "/") || strings.Contains(p, "../") {
 		return false

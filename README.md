@@ -1,7 +1,8 @@
 [![Build](https://img.shields.io/travis/rickypc/native-messaging-host)](https://bit.ly/2ItWBWM)
 [![Coverage](https://img.shields.io/codecov/c/github/rickypc/native-messaging-host)](https://bit.ly/2TwjOyb)
 [![Dependabot](https://api.dependabot.com/badges/status?host=github&repo=rickypc/native-messaging-host)](https://bit.ly/2KIM5vs)
-[![GoDoc](https://godoc.org/github.com/rickypc/native-messaging-host?status.svg)][4]
+[![GoDev](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)][4.1]
+[![GoDoc](https://godoc.org/github.com/rickypc/native-messaging-host?status.svg)][4.2]
 [![License](https://img.shields.io/github/license/rickypc/native-messaging-host)][8]
 
 # Native Messaging Host Module for Go
@@ -15,7 +16,7 @@ as well as it provides hook to install and uninstall manifest file to
 
 ## Installation and Usage
 
-Package documentation can be found on [GoDoc][4].
+Package documentation can be found on [GoDev][4.1] or [GoDoc][4.2].
 
 Installation can be done with a normal `go get`:
 
@@ -189,7 +190,8 @@ Documentation and other similar content are provided under [Creative Commons Att
 [1]: https://bit.ly/3axo5Xv
 [2]: https://bit.ly/2vOdAR5
 [3]: https://bit.ly/2TuQrMw
-[4]: https://bit.ly/2TMGqcj
+[4.1]: http://bit.ly/2Tw22L6
+[4.2]: https://bit.ly/2TMGqcj
 [5]: https://bit.ly/2Tt4Poo
 [6]: https://bit.ly/3cAVAdq
 [7]: https://bit.ly/3aDA1Hv

@@ -5,27 +5,6 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-// Package packer provides extracting archive related syntactic sugar.
-//
-// * Extract tar.gz content
-//
-//   ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-//   defer cancel()
-//
-//   resp := client.MustGetWithContext(ctx, "https://domain.tld")
-//   defer resp.Body.Close()
-//
-//   packer.Untar(resp.Body, "/path/to/extract")
-//
-// * Extract zip content
-//
-//   ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-//   defer cancel()
-//
-//   resp := client.MustGetWithContext(ctx, "https://domain.tld")
-//   defer resp.Body.Close()
-//
-//   packer.Unzip(resp.Body, "/path/to/extract")
 package packer
 
 import (
@@ -42,8 +21,8 @@ import (
 // removeLink is a wrapper to remove given path and log any error.
 func removeLink(name string) {
 	if _, err := os.Lstat(name); err == nil {
-		if err := os.Remove(name); err != nil {
-			log.Fatalf("untar rm %s error: %v", name, err)
+		if err := osRemove(name); err != nil {
+			logFatalf("untar rm %s error: %v", name, err)
 		}
 	}
 }

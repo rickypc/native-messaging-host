@@ -15,10 +15,73 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 	"time"
 )
+
+func TestClientMustGetAndUntarWithContext(t *testing.T) {
+	t.Parallel()
+
+	compare := func() func(t *testing.T) {
+		return func(t *testing.T) {
+			target := "../testdata/tar"
+			server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+				http.ServeFile(rw, req, "../testdata/packer.tgz")
+			}))
+			defer server.Close()
+
+			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+			defer cancel()
+
+			MustGetAndUntarWithContext(ctx, server.URL, target)
+
+			if _, err := os.Stat(target + "/file"); err != nil {
+				t.Errorf("missing file %s: %v", target + "/file", err)
+			}
+
+			if _, err := os.Stat(target + "/folder/file"); err != nil {
+				t.Errorf("missing file %s: %v", target + "/folder/file", err)
+			}
+
+			os.RemoveAll(target)
+		}
+	}
+
+	t.Run("with valid response", compare())
+}
+
+func TestClientMustGetAndUnzipWithContext(t *testing.T) {
+	t.Parallel()
+
+	compare := func() func(t *testing.T) {
+		return func(t *testing.T) {
+			target := "../testdata/zip"
+			server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+				http.ServeFile(rw, req, "../testdata/packer.zip")
+			}))
+			defer server.Close()
+
+			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+			defer cancel()
+
+			MustGetAndUnzipWithContext(ctx, server.URL, target)
+
+			if _, err := os.Stat(target + "/file"); err != nil {
+				t.Errorf("missing file %s: %v", target + "/file", err)
+			}
+
+			if _, err := os.Stat(target + "/folder/file"); err != nil {
+				t.Errorf("missing file %s: %v", target + "/folder/file", err)
+			}
+
+			os.RemoveAll(target)
+		}
+	}
+
+	t.Run("with valid response", compare())
+}
 
 func TestClientMustGetWithContext(t *testing.T) {
 	compare := func(wantErr int) func(t *testing.T) {

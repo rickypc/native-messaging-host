@@ -1,6 +1,7 @@
 [![Build](https://img.shields.io/travis/rickypc/native-messaging-host)](https://bit.ly/2ItWBWM)
 [![Coverage](https://img.shields.io/codecov/c/github/rickypc/native-messaging-host)](https://bit.ly/2TwjOyb)
 [![Dependabot](https://api.dependabot.com/badges/status?host=github&repo=rickypc/native-messaging-host)](https://bit.ly/2KIM5vs)
+[![GoDoc](https://godoc.org/github.com/rickypc/native-messaging-host?status.svg)][4]
 [![License](https://img.shields.io/github/license/rickypc/native-messaging-host)][8]
 
 # Native Messaging Host Module for Go

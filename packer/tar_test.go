@@ -79,6 +79,28 @@ func TestTarRemoveLink(t *testing.T) {
 	t.Run("with remove error", compare(2))
 }
 
+func TestTarUntar(t *testing.T) {
+	t.Parallel()
+
+	compare := func(wantErr int) func(t *testing.T) {
+		return func(t *testing.T) {
+			t.Parallel()
+
+			target := "../testdata/untar"
+			file, _ := os.Open("../testdata/packer.tgz")
+			Untar(file, target)
+
+			switch wantErr {
+			case 0:
+			}
+
+			os.RemoveAll(target)
+		}
+	}
+
+	t.Run("with valid file", compare(0))
+}
+
 func TestTarValidRelPath(t *testing.T) {
 	t.Parallel()
 

@@ -41,8 +41,8 @@ package client
 import (
 	"context"
 	"crypto/tls"
-	"log"
 	"github.com/rickypc/native-messaging-host/packer"
+	"log"
 	"net"
 	"net/http"
 	"strings"

@@ -38,11 +38,11 @@ func TestClientMustGetAndUntarWithContext(t *testing.T) {
 			MustGetAndUntarWithContext(ctx, server.URL, target)
 
 			if _, err := os.Stat(target + "/file"); err != nil {
-				t.Errorf("missing file %s: %v", target + "/file", err)
+				t.Errorf("missing file %s: %v", target+"/file", err)
 			}
 
 			if _, err := os.Stat(target + "/folder/file"); err != nil {
-				t.Errorf("missing file %s: %v", target + "/folder/file", err)
+				t.Errorf("missing file %s: %v", target+"/folder/file", err)
 			}
 
 			os.RemoveAll(target)
@@ -69,11 +69,11 @@ func TestClientMustGetAndUnzipWithContext(t *testing.T) {
 			MustGetAndUnzipWithContext(ctx, server.URL, target)
 
 			if _, err := os.Stat(target + "/file"); err != nil {
-				t.Errorf("missing file %s: %v", target + "/file", err)
+				t.Errorf("missing file %s: %v", target+"/file", err)
 			}
 
 			if _, err := os.Stat(target + "/folder/file"); err != nil {
-				t.Errorf("missing file %s: %v", target + "/folder/file", err)
+				t.Errorf("missing file %s: %v", target+"/folder/file", err)
 			}
 
 			os.RemoveAll(target)

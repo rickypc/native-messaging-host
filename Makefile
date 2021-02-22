@@ -30,6 +30,10 @@ help: ## List of all available commands
 lint: ## Run code linters
 	@golangci-lint run
 
+.PHONY: ready
+ready: format lint test ## Prepare for publish
+	@echo "\033[1;32mgit commit && git push origin && git tag vNEW-VERSION && git push --tags\033[0m"; \
+
 .PHONY: test
 test: clean version ## Run all the tests
 	go test -coverprofile cp.out ./...

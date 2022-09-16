@@ -181,7 +181,7 @@ That's it! Thank you for your contribution!
 
 License
 -
-Copyright (c) 2018 - 2020 Richard Huang.
+Copyright (c) 2018 - 2022 Richard Huang.
 
 This utility is free software, licensed under: [Mozilla Public License (MPL-2.0)][8].
 

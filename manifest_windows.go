@@ -29,7 +29,9 @@ func (h *Host) Install() error {
 		return err
 	}
 
-	key, err := registry.OpenKey(registry.CURRENT_USER, registryName, registry.SET_VALUE)
+	// CreateKey creates a key named path under open key k. CreateKey returns the
+	// new key and a boolean flag that reports whether the key already existed.
+	key, _, err := registry.CreateKey(registry.CURRENT_USER, registryName, registry.SET_VALUE)
 	if err != nil {
 		return err
 	}

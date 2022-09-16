@@ -1,0 +1,27 @@
+# build.yml - Github actions for Native Messaging Host build.
+# Copyright (c) 2018 - 2022 Richard Huang <rickypc@users.noreply.github.com>
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+name: Build
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Test, Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.15'
+      - name: Check code functionality
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic
+      - name: Send coverage
+        run: bash <(curl -s https://codecov.io/bash)
